@@ -1,0 +1,26 @@
+name: Calculator
+
+on:
+  workflow_dispatch:
+    inputs:
+      number1:
+        description: 'The first number'
+        required: true
+      number2:
+        description: 'The second number'
+        required: true
+      operator:
+        description: 'The operator (+, -, *, /)'
+        required: true
+
+jobs:
+  calculate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run calculator
+        run: |
+          echo "Number 1: ${{ inputs.number1 }}"
+          echo "Number 2: ${{ inputs.number2 }}"
+          echo "Operator: ${{ inputs.operator }}"
