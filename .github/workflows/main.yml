@@ -24,5 +24,10 @@ jobs:
           echo "Number 1: ${{ inputs.number1 }}"
           echo "Number 2: ${{ inputs.number2 }}"
           echo "Operator: ${{ inputs.operator }}"
-          RESULT="$(python calculator.py)"
+          case $operator in
+            1)RESULT='echo $number1 + $number2 | bc ';;
+            2)RESULT='echo $number1 - $number2 | bc ';;
+            3)RESULT='echo $number1 * $number2 | bc ';;
+            4)RESULT='echo $number1 / $number2 | bc ';;
+          esac
           echo "Result: $RESULT"
