@@ -24,3 +24,5 @@ jobs:
           echo "Number 1: ${{ inputs.number1 }}"
           echo "Number 2: ${{ inputs.number2 }}"
           echo "Operator: ${{ inputs.operator }}"
+          RESULT=$(echo "${{ inputs.number1 }} ${inputs.operator} ${inputs.number2}" | bc)
+          echo "Result: $RESULT"
