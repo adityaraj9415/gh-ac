@@ -1,0 +1,17 @@
+name: My Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      input1:
+        description: 'Select an option'
+        required: true
+        options: ['Option 1', 'Option 2', 'Option 3']
+
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "Hello World"
+
