@@ -24,6 +24,9 @@ jobs:
           echo "Number 1: ${{ inputs.number1 }}"
           echo "Number 2: ${{ inputs.number2 }}"
           echo "Operator: ${{ inputs.operator }}"
+          read number1
+          read number2
+          read operator
           case $operator in
             1)RESULT='echo $number1 + $number2 | bc ';;
             2)RESULT='echo $number1 - $number2 | bc ';;
