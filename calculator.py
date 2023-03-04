@@ -1,14 +1,20 @@
-number1 = ${{ github.inputs.number1 }}
-number2 = ${{ github.inputs.number2 }}
-operator = ${{ github.inputs.operator }}
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+operation = input("Enter operation (+,-,*,/): ")
 
-if operator == '+':
-    result = number1 + number2
-elif operator == '-':
-    result = number1 - number2
-elif operator == '*':
-    result = number1 * number2
-elif operator == '/':
-    result = number1 / number2
+if operation == '+':
+    result = num1 + num2
+elif operation == '-':
+    result = num1 - num2
+elif operation == '*':
+    result = num1 * num2
+elif operation == '/':
+    if num2 == 0:
+        print("Error: Cannot divide by zero")
+        exit(1)
+    result = num1 / num2
 else:
-    print("Invalid Operator!")
+    print("Error: Invalid operation")
+    exit(1)
+
+print("Result: ", result)
