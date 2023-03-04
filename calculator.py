@@ -1,10 +1,10 @@
-if Operator == '+':
+if The operator == '+':
     result = number1 + number2
-elif Operator == '-':
+elif The operator == '-':
     result = number1 - number2
-elif Operator == '*':
+elif The operator == '*':
     result = number1 * number2
-elif Operator == '/':
+elif The operator == '/':
     result = number1 / number2
 else:
     print("Invalid Operator!")
