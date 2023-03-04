@@ -10,7 +10,7 @@ on:
         description: 'The second number'
         required: true
       operator:
-        description: 'The operator (+, -, *, /)'
+        description: 'operator (+, -, *, /)'
         required: true
 
 jobs:
