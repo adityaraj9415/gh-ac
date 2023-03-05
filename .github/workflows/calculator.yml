@@ -29,21 +29,17 @@ jobs:
       - name: Run calculator program
         run: |
           case "${{ steps.outputs.inputs.operation }}" in
-            '+')
+            +)
               result=$((${{ steps.inputs.outputs.num1 }} + ${{ steps.inputs.outputs.num2 }}))
               ;;
-            '-')
+            -)
               result=$((${{ steps.inputs.outputs.num1 }} - ${{ steps.inputs.outputs.num2 }}))
               ;;
-            '*')
+            *)
               result=$((${{ steps.inputs.outputs.num1 }} * ${{ steps.inputs.outputs.num2 }}))
               ;;
-            '/')
+            /)
               result=$((${{ steps.inputs.outputs.num1 }} / ${{ steps.inputs.outputs.num2 }}))
-              ;;
-            *)
-              echo "Invalid operator" >&2
-              exit 1
               ;;
           esac
           echo "::set-output name=result::$result"
