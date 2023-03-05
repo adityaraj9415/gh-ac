@@ -19,28 +19,31 @@ on:
           - '*'
           - '/'
 jobs:
-  calculate:
+  calculate_job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run calculator program
-        run: |
-          
-          if [ ${{ steps.inputs.operation }} = "+" ]; then
-              result=$((${{ steps.inputs.num1 }} + ${{ steps.inputs.num2 }}))
-          elif [ ${{ steps.inputs.operation }} = "-" ]; then
-              result=$((${{ steps.inputs.num1 }} - ${{ steps.inputs.num2 }}))
-          elif [ ${{ steps.inputs.operation }} = "*" ]; then
-              result=$((${{ steps.inputs.num1 }} * ${{ steps.inputs.num2 }}))
-          elif [ ${{ steps.inputs.operation }} = "/"]; then
-              result=$((${{ steps.inputs.num1 }} / ${{ steps.inputs.num2 }}))
-          else
-              echo "Invalid operator"
-              exit 1
-          fi
-          echo "Result: $result"
-         
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Run calculator
+      run: |
+        num1=${{ github.event.inputs.num1 }}
+        num2=${{ github.event.inputs.num2 }}
+        operator=${{ github.event.inputs.operator }}
+
+        if [ "$operator" = "+" ]; then
+            result=$(echo "$num1 + $num2" | bc)
+        elif [ "$operator" = "-" ]; then
+            result=$(echo "$num1 - $num2" | bc)
+        elif [ "$operator" = "*" ]; then
+            result=$(echo "$num1 * $num2" | bc)
+        elif [ "$operator" = "/" ]; then
+            result=$(echo "$num1 / $num2" | bc)
+        else
+            echo "Invalid operator"
+            exit 1
+        fi
+
+        echo "Result: $result"
   
           
           
