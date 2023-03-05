@@ -1,17 +1,33 @@
-name: My Workflow
-
 on:
   workflow_dispatch:
     inputs:
-      input1:
-        description: 'Select an option'
+      logLevel:
+        description: 'Log level'
         required: true
-        options: ['Option 1', 'Option 2', 'Option 3']
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      print_tags:
+        description: 'True to print to STDOUT'
+        required: true
+        type: boolean
+      tags:
+        description: 'Test scenario tags'
+        required: true
+        type: string
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
 
 jobs:
-  my_job:
+  print-tag:
     runs-on: ubuntu-latest
+    if:  ${{ inputs.print_tags }} 
     steps:
-      - name: Step 1
-        run: echo "Hello World"
+      - name: Print the input tag to STDOUT
+        run: echo  The tags are ${{ inputs.tags }}
 
