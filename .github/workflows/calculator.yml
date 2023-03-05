@@ -43,6 +43,7 @@ jobs:
             echo "Invalid operator"
             exit 1
         fi
+        echo "Result: $result"
         echo "::set-output name=result::$result"
   
   display_result_job:
