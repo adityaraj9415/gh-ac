@@ -27,13 +27,13 @@ jobs:
       - name: Run calculator program
         run: |
           
-          if [ "${{ steps.inputs.operation }}" = "+" ]; then
+          if [ ${{ steps.inputs.operation }} = "+" ]; then
               result=$((${{ steps.inputs.num1 }} + ${{ steps.inputs.num2 }}))
-          elif [ "${{ steps.inputs.operation }}" = "-" ]; then
+          elif [ ${{ steps.inputs.operation }} = "-" ]; then
               result=$((${{ steps.inputs.num1 }} - ${{ steps.inputs.num2 }}))
-          elif [ "${{ steps.inputs.operation }}" = "*" ]; then
+          elif [ ${{ steps.inputs.operation }} = "*" ]; then
               result=$((${{ steps.inputs.num1 }} * ${{ steps.inputs.num2 }}))
-          elif [ "${{ steps.inputs.operation }}" = "/"]; then
+          elif [ ${{ steps.inputs.operation }} = "/"]; then
               result=$((${{ steps.inputs.num1 }} / ${{ steps.inputs.num2 }}))
           else
               echo "Invalid operator"
