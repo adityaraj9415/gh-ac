@@ -19,10 +19,46 @@ on:
           - '*'
           - '/'
 jobs:
-  build:
+  calculate:
     runs-on: ubuntu-latest
+    outputs: 
+      result: ${{ steps.calculate.outputs.result }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run calculator program
-        run: python calculator.py ${{ github.event.inputs.num1 }} ${{ github.event.inputs.num2 }} ${{ github.event.inputs.operation }}
+        run: |
+          case "${{ steps.outputs.inputs.operation }}" in
+            "+")
+              result=$((${{ steps.inputs.outputs.num1 }} + ${{ steps.inputs.outputs.num2 }}))
+              ;;
+            "-")
+              result=$((${{ steps.inputs.outputs.num1 }} - ${{ steps.inputs.outputs.num2 }}))
+              ;;
+            "*")
+              result=$((${{ steps.inputs.outputs.num1 }} * ${{ steps.inputs.outputs.num2 }}))
+              ;;
+            "/")
+              result=$((${{ steps.inputs.outputs.num1 }} / ${{ steps.inputs.outputs.num2 }}))
+              ;;
+            *)
+              echo "Invalid operator" >&2
+              exit 1
+              ;;
+          esac
+          echo "::set-output name=result::$result"
+          result: ${{ steps.calculate.outputs.result }}
+  display:
+    needs: [calculate]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display result
+        run: echo "Result:${{ needs.calculate.outputs.result}}"
+    
+          
+          
+          
+          
+          
+          
+          
