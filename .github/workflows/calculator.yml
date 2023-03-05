@@ -12,6 +12,7 @@ on:
       operator:
         description: 'Enter the operation '
         required: true
+        default: ''
         type: choice
         options:
           - '+'
