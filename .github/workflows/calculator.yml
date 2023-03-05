@@ -21,36 +21,29 @@ on:
 jobs:
   calculate:
     runs-on: ubuntu-latest
-    outputs: 
-      result: ${{ steps.calculate.outputs.result }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run calculator program
         run: |
-          case "${{ steps.outputs.inputs.operation }}" in
-            +)
-              result=$((${{ steps.inputs.outputs.num1 }} + ${{ steps.inputs.outputs.num2 }}))
-              ;;
-            -)
-              result=$((${{ steps.inputs.outputs.num1 }} - ${{ steps.inputs.outputs.num2 }}))
-              ;;
-            *)
-              result=$((${{ steps.inputs.outputs.num1 }} * ${{ steps.inputs.outputs.num2 }}))
-              ;;
-            /)
-              result=$((${{ steps.inputs.outputs.num1 }} / ${{ steps.inputs.outputs.num2 }}))
-              ;;
-          esac
-          echo "::set-output name=result::$result"
-          result: ${{ steps.calculate.outputs.result }}
-  display:
-    needs: [calculate]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Display result
-        run: echo "Result:${{ needs.calculate.outputs.result}}"
-    
+          read num1
+          read num2
+          read operation
+          if [ "$operator" = "+" ]; then
+              result=$(echo "$num1 + $num2" | bc)
+          elif [ "$operator" = "-" ]; then
+              result=$(echo "$num1 - $num2" | bc)
+          elif [ "$operator" = "*" ]; then
+              result=$(echo "$num1 * $num2" | bc)
+          elif [ "$operator" = "/" ]; then
+              result=$(echo "$num1 / $num2" | bc)
+          else
+              echo "Invalid operator"
+              exit 1
+          fi
+          echo "Result: $result"
+         
+  
           
           
           
