@@ -26,9 +26,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Run calculator program
         run: |
-          read num1
-          read num2
-          read operation
+          
           if [ "$operator" = "+" ]; then
               result=$(echo "$num1 + $num2" | bc)
           elif [ "$operator" = "-" ]; then
