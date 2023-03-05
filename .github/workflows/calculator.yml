@@ -10,9 +10,14 @@ on:
         description: 'Enter the second number'
         required: true
       operation:
-        description: 'Enter the operation (+, -, *, or /)'
+        description: 'Enter the operation '
         required: true
-
+        type: choice
+        options:
+          - '+'
+          - '-'
+          - '*'
+          - '/'
 jobs:
   build:
     runs-on: ubuntu-latest
