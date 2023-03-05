@@ -42,10 +42,15 @@ jobs:
             echo "Invalid operator"
             exit 1
         fi
-
-        echo "Result: $result"
+        
   
-          
+  display_result_job:
+    needs: calculate_job
+    runs-on: ubuntu-latest
+    steps:
+    - name: Display result
+      echo "Result: $result"
+      
           
           
           
