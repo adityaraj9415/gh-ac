@@ -44,14 +44,14 @@ jobs:
             exit 1
         fi
         echo "Result: $result"
-        echo "::set-output name=result::$result"
+        
   
   display_result_job:
     needs: calculate_job
     runs-on: ubuntu-latest
     steps:
     - name: Display result
-      run: "Result: $result"
+    - run: "Result: $result"
       
           
           
