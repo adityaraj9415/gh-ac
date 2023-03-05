@@ -9,7 +9,7 @@ on:
       num2:
         description: 'Enter the second number'
         required: true
-      operation:
+      operator:
         description: 'Enter the operation '
         required: true
         type: choice
