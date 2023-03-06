@@ -1,0 +1,66 @@
+name: Calculator
+
+on:
+  workflow_dispatch:
+    inputs:
+      usrInput1:
+        description: Take User Input 1
+        default: '0'
+        required: true
+      usrInput2:
+        description: Take User Input 2
+        default: '0'
+        required: true
+      operator:
+        type: choice
+        description: Choose Operator
+        options:
+        - multiply
+        - addition
+        - substraction
+        - division
+
+jobs:
+  user-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Display Input 1
+        run: echo "Input-1 is  ${{ github.event.inputs.usrInput1 }}"
+      - name: Display Input 2
+        run: echo "Input-2 is ${{ github.event.inputs.usrInput2 }}"
+      - name: Operator
+        run: echo "Operator is ${{ github.event.inputs.operator }}"
+  perform-operation:
+    needs: user-inputs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Multiply
+        if: github.event.inputs.operator == 'multiply'
+        run: |
+            x = ${{github.event.inputs.usrInput1}}
+            y = ${{github.event.inputs.usrInput2}}
+            res = $(expr $x * $y)
+            echo "Result is : $res"
+      - name: Addition
+        if: github.event.inputs.operator == 'addition'
+        run: |
+            x = ${{github.event.inputs.usrInput1}}
+            y = ${{github.event.inputs.usrInput2}}
+            res = $(expr $x + $y)
+            echo "Result is : $res"
+      - name: Substraction
+        if: github.event.inputs.operator == 'substraction'
+        run: |
+            x = ${{github.event.inputs.usrInput1}}
+            y = ${{github.event.inputs.usrInput2}}
+            res = $(expr $x - $y)
+            echo "Result is : $res"
+      - name: Division
+        if: github.event.inputs.operator == 'division'
+        run: |
+            x = ${{github.event.inputs.usrInput1}}
+            y = ${{github.event.inputs.usrInput2}}
+            res = $(expr $x / $y)
+            echo "Result is: $res"
