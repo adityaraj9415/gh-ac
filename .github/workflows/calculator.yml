@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Display result
-      run: echo "Result is $result"
+      run: echo "${{ steps.calculate_job.result }}"
       
           
           
