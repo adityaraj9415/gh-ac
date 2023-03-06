@@ -26,6 +26,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Run calculator
+      id: calculate
       run: |
         num1=${{ github.event.inputs.num1 }}
         num2=${{ github.event.inputs.num2 }}
@@ -50,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Display result
-      run: echo "Result is ${{ steps.calculate_job.result }}"
+      run: echo "Result is ${{ steps.calculate_job.id.result }}"
       
           
           
