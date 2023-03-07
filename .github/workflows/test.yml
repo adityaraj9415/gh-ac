@@ -11,7 +11,12 @@ on:
         required: true
       operator:
         description: 'Enter operator (+,-,*,/)'
-        required: true
+        type: choice
+        options:
+          - '+'
+          - '-'
+          - '*'
+          - '/'
 
 jobs:
   calculator_job:
