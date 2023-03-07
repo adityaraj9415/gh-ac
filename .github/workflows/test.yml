@@ -1,66 +1,55 @@
-name: Calculator
+name: Calculator Workflow
 
 on:
   workflow_dispatch:
     inputs:
-      usrInput1:
-        description: Take User Input 1
-        default: '0'
+      num1:
+        description: 'Enter first number'
         required: true
-      usrInput2:
-        description: Take User Input 2
-        default: '0'
+      num2:
+        description: 'Enter second number'
         required: true
       operator:
-        type: choice
-        description: Choose Operator
-        options:
-        - multiply
-        - addition
-        - substraction
-        - division
+        description: 'Enter operator (+,-,*,/)'
+        required: true
 
 jobs:
-  user-inputs:
+  calculator_job:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Display Input 1
-        run: echo "Input-1 is  ${{ github.event.inputs.usrInput1 }}"
-      - name: Display Input 2
-        run: echo "Input-2 is ${{ github.event.inputs.usrInput2 }}"
-      - name: Operator
-        run: echo "Operator is ${{ github.event.inputs.operator }}"
-  perform-operation:
-    needs: user-inputs
+    - name: Perform calculation
+      run: |
+        num1=$INPUT_NUM1
+        num2=$INPUT_NUM2
+        operator=$INPUT_OPERATOR
+        result=0
+        
+        case $operator in
+            '+')
+                result=$(expr $num1 + $num2)
+                ;;
+            '-')
+                result=$(expr $num1 - $num2)
+                ;;
+            '*')
+                result=$(expr $num1 \* $num2)
+                ;;
+            '/')
+                result=$(expr $num1 / $num2)
+                ;;
+            *)
+                echo "Invalid operator entered"
+                exit 1
+                ;;
+        esac
+        
+        echo "::set-output name=result::$result"
+        
+  display_result_job:
+    needs: calculator_job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Multiply
-        if: github.event.inputs.operator == 'multiply'
-        run: |
-            x = ${{github.event.inputs.usrInput1}}
-            y = ${{github.event.inputs.usrInput2}}
-            res = $(expr $x * $y)
-            echo "Result is : $res"
-      - name: Addition
-        if: github.event.inputs.operator == 'addition'
-        run: |
-            x = ${{github.event.inputs.usrInput1}}
-            y = ${{github.event.inputs.usrInput2}}
-            res = $(expr $x + $y)
-            echo "Result is : $res"
-      - name: Substraction
-        if: github.event.inputs.operator == 'substraction'
-        run: |
-            x = ${{github.event.inputs.usrInput1}}
-            y = ${{github.event.inputs.usrInput2}}
-            res = $(expr $x - $y)
-            echo "Result is : $res"
-      - name: Division
-        if: github.event.inputs.operator == 'division'
-        run: |
-            x = ${{github.event.inputs.usrInput1}}
-            y = ${{github.event.inputs.usrInput2}}
-            res = $(expr $x / $y)
-            echo "Result is: $res"
+    - name: Display result
+      run: |
+        result=${{ needs.calculator_job.outputs.result }}
+        echo "The result of the calculation is $result"
