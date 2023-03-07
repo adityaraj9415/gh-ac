@@ -24,29 +24,23 @@ jobs:
     steps:
     - name: Perform calculation
       run: |
-        num1=$INPUT_NUM1
-        num2=$INPUT_NUM2
-        operator=$INPUT_OPERATOR
+        num1= ${{ github.event.inputs.num1 }}
+        num2= ${{ github.event.inputs.num2 }}
+        operator= ${{ github.event.inputs.operator }}
         result=0
         
-        case $operator in
-            '+')
-                result=$(expr $num1 + $num2)
-                ;;
-            '-')
-                result=$(expr $num1 - $num2)
-                ;;
-            '*')
-                result=$(expr $num1 \* $num2)
-                ;;
-            '/')
-                result=$(expr $num1 / $num2)
-                ;;
-            *)
-                echo "Invalid operator entered"
-                exit 1
-                ;;
-        esac
+        if [ "$operator" = "+" ]; then
+            result=$(echo "$num1 + $num2" | bc)
+        elif [ "$operator" = "-" ]; then
+            result=$(echo "$num1 - $num2" | bc)
+        elif [ "$operator" = "*" ]; then
+            result=$(echo "$num1 * $num2" | bc)
+        elif [ "$operator" = "/" ]; then
+            result=$(echo "$num1 / $num2" | bc)
+        else
+            echo "Invalid operator"
+            exit 1
+        fi
         
         echo "::set-output name=result::$result"
         
